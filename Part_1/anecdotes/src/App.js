@@ -6,6 +6,7 @@ const Button = ({handleClick, text}) => (
     </button>
 )
 
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often',
@@ -33,19 +34,32 @@ const App = () => {
     }
     setVoted(actVoteClicks)
     console.log(actVoteClicks)
+
+    console.log("actVoted selected: ", actVoteClicks[selected])
+
+    if (actVoteClicks[selected] >= voted[mostVoted]) {
+      setMostVoted(selected)
+      console.log("most voted 2: ", voted[mostVoted])
+    }
+
   }
 
   const [selected, setSelected] = useState(randGen())
   const [voted, setVoted] = useState({
     0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0
   })
+  const [mostVoted, setMostVoted] = useState(0)
 
   return (
     <div>
-      <h2>"{anecdotes[selected]}"</h2>
+      <h2>Anecdote of the day</h2>
+      <p>"{anecdotes[selected]}"</p>
       <p>This anecdote has {voted[selected]} votes. </p>
       <Button handleClick={voteClick} text='Vote' />
       <Button handleClick={randClick} text='Next Anecdote' />
+      <h2>Anecdotes with the most votes. </h2>
+      <p>"{anecdotes[mostVoted]}"</p>
+      <p>This anecdote has {voted[mostVoted]} votes. </p>
     </div>
   )
 }
